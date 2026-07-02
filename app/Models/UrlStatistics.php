@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Url;
 
 /**
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UrlStatistics newModelQuery()
@@ -12,5 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UrlStatistics extends Model
 {
-    //
+    public function url(): BelongsTo
+    {
+        return $this->belongsTo(Url::class);
+    }
 }
