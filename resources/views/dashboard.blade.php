@@ -26,7 +26,7 @@
             @foreach ($links as $link)
                 <h1><a href="/statistics/{{ $link->id }}">{{$link->short_url}}</a></h1>
                 <p>{{ $link->source_url }}</p>
-                {{-- <a href="/delete/{{ $link->id }}">Delete link</a> --}}
+                <a href="/delete/{{ $link->id }}">Delete link</a>
             @endforeach
         </div>
     @endauth

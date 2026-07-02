@@ -16,6 +16,7 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/createurl', [UrlController::class, 'createShortURL']);
     Route::get('/statistics/{id}', [UrlController::class, 'getStatistics']);
     Route::get('/allclicks', [UrlController::class, 'getAllStatistics']);
+    Route::get('/delete/{id}', [UrlController::class, 'deleteLink']);
 });
 
 Route::get('/{code}', [UrlController::class, 'redirect']);

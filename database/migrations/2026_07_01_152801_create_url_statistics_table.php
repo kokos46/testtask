@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('url_statistics', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('url_id')->constrained('urls');
+            $table->foreignId('url_id')->constrained('urls')->cascadeOnDelete();
             $table->string('ip_address');
             $table->timestamps();
         });

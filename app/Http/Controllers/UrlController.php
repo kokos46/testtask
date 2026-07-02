@@ -61,4 +61,9 @@ class UrlController extends Controller
 
         return view('allclicks', ['data' => $all]);
     }
+
+    public function deleteLink(int $id){
+        Url::find($id)->delete();
+        return redirect('/');
+    }
 }
