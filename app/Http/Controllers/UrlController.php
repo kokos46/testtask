@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Url;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Models\UrlStatistics;
 
 class UrlController extends Controller
 {
@@ -30,14 +32,33 @@ class UrlController extends Controller
         return redirect('/');
     }
 
-    public function redirect(string $code){
+    public function redirect(Request $request, string $code){
         $link = Url::where('short_url', env('APP_URL') . '/' . $code)->first();
 
         $link->increment('click_count');
-        // $link->urlStatistics()->create([
+        
+        User::find(Auth::user()['id'])->increment('total_clicks');
 
-        // ]);
+        $link->urlStatistics()->create([
+            'ip_address' => $request->ip()
+        ]);
 
         return redirect()->away($link->source_url);
+    }
+
+    public function getStatistics(int $id){
+        $linkData = Url::with('urlStatistics')->find($id);
+        return view("statistics", ['linkData' => $linkData]);
+    }
+
+    public function getAllStatistics(){
+        $all = UrlStatistics::all()->map(fn ($item) => [
+            'id' => $item->id,
+            'ip_address' => $item->ip_address,
+            'link' => $item->url->short_url,
+            'click_time' => $item->created_at
+        ]);
+
+        return view('allclicks', ['data' => $all]);
     }
 }

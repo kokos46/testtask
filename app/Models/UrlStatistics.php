@@ -18,4 +18,8 @@ class UrlStatistics extends Model
     {
         return $this->belongsTo(Url::class);
     }
+
+    protected $fillable = [
+        'ip_address'
+    ];
 }

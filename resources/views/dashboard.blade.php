@@ -19,10 +19,14 @@
             <input type="submit" value="Shorten link">
         </form>
 
+        <p>Total clicks: {{ Auth::user()['total_clicks'] }}</p>
+
+        <a href="/allclicks">All clicks</a>
         <div>
             @foreach ($links as $link)
-                <h1>{{$link->short_url}}</h1>
+                <h1><a href="/statistics/{{ $link->id }}">{{$link->short_url}}</a></h1>
                 <p>{{ $link->source_url }}</p>
+                {{-- <a href="/delete/{{ $link->id }}">Delete link</a> --}}
             @endforeach
         </div>
     @endauth
