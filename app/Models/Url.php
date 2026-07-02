@@ -29,4 +29,10 @@ class Url extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected $fillable = [
+        'source_url',
+        'short_url',
+        'user_id'
+    ];
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UrlController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,3 +10,10 @@ Route::get('/register', [UserController::class, 'registerPage']);
 Route::post('/register', [UserController::class, 'register']);
 Route::get('/login', [UserController::class, 'loginPage']);
 Route::post('/login', [UserController::class, 'login']);
+Route::get('/logout', [UserController::class, 'logout']);
+
+Route::middleware(['auth'])->group(function() {
+    Route::post('/createurl', [UrlController::class, 'createShortURL']);
+});
+
+Route::get('/{code}', [UrlController::class, 'redirect']);

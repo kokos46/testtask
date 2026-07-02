@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use App\Models\Url;
 
 class UserController extends Controller
 {
@@ -57,7 +58,8 @@ class UserController extends Controller
 
     public function index(){
         if (Auth::check()){
-            return view('dashboard', ['user'=>Auth::user()['name']]);
+            $userLinks = Url::where('user_id', Auth::user()->id)->get();
+            return view('dashboard', ['user'=>Auth::user()['name'], 'links' => $userLinks]);
         }
         return view('dashboard', ['user'=>null]);
     }
