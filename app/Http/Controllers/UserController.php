@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -60,5 +60,11 @@ class UserController extends Controller
             return view('dashboard', ['user'=>Auth::user()['name']]);
         }
         return view('dashboard', ['user'=>null]);
+    }
+
+    public function logout(){
+        Session::flush();
+        Auth::logout();
+        return redirect('/');
     }
 }
